@@ -11,7 +11,7 @@ const Header = () => {
     }
     
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-row pb-6">
             <Image src={walletIcon} width={40} height={40} alt="wallet icon"/>
             <h2 className="scroll-m-20 pt-1 text-3xl font-bold tracking-tight first:mt-0">
                 Simple  
