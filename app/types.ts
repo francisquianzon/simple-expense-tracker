@@ -1,6 +1,7 @@
 import { CategoryList } from "./constants";
 
 export type TExpenseData = {
+    id: string;
     name: string;
     amount: number;
     category: CategoryList;
@@ -10,7 +11,8 @@ export type TExpenseData = {
 
 export type TExpenseDataContext = {
     data: TExpenseData[],
-    setExpenseData: (expense: TExpenseData) => void;
-    activeData?: TExpenseData;
+    activeDataId?: string;
     totalCash?: number;
+    setExpenseData: (expense: TExpenseData) => void;
+    setActiveExpenseData: (expenseId: string) => void;
 }
