@@ -11,8 +11,10 @@ export type TExpenseData = {
 
 export type TExpenseDataContext = {
     data: TExpenseData[],
-    activeDataId?: string;
-    totalCash?: number;
+    activeDataId: string;
+    totalCash: number;
     setExpenseData: (expense: TExpenseData) => void;
     setActiveExpenseData: (expenseId: string) => void;
+    deleteExpenseData: (expenseId: string) => void;
+    setTotalCash: (cash: number) => void;
 }

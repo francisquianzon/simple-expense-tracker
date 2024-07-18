@@ -2,25 +2,40 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useContext, useMemo } from 'react';
 import { ExpenseDataContext } from '@/app/page';
+import EditDialog from './EditDialog';
 
 const ExpenseDetails = () => {
-  const { activeDataId, data } = useContext(ExpenseDataContext);
+  const { activeDataId, data, totalCash } = useContext(ExpenseDataContext);
+
+  const totalExpenses = useMemo(() => {
+    return data.reduce((accumulator, datum) => {
+      return (accumulator += datum.amount);
+    }, 0);
+  }, [data]);
 
   // Finds and sets the expense to be displayed based on the given ID
   const activeExpenseObject = useMemo(() => {
     const activeExpense = data.find((datum) => datum.id === activeDataId);
     return activeExpense;
-  }, [activeDataId]);
+    // Added data as a dependency to update details when an expense is deleted
+  }, [activeDataId, data]);
 
   return (
     <div className="flex h-full w-1/3 flex-col">
       <div className="flex flex-row">
         <Card className="mx-2 w-1/2">
           <CardHeader>
-            <CardTitle className="text-base">Total cash</CardTitle>
+            <div className="flex flex-row">
+              <CardTitle className="text-base">Total cash</CardTitle>
+            </div>
           </CardHeader>
           <CardContent>
-            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">$23,500</h2>
+            <div className="flex flex-col">
+              <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">${totalCash}</h2>
+              <div className="flex flex-1 justify-end">
+                <EditDialog />
+              </div>
+            </div>
           </CardContent>
         </Card>
         <Card className="ml-2 w-1/2">
@@ -28,7 +43,7 @@ const ExpenseDetails = () => {
             <CardTitle className="text-base">Total expenses</CardTitle>
           </CardHeader>
           <CardContent>
-            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">$1,340</h2>
+            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">${totalExpenses}</h2>
           </CardContent>
         </Card>
       </div>

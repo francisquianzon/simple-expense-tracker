@@ -28,7 +28,7 @@ const AddDialog = () => {
     const expenseFormData: TExpenseData = {
       id: uuidv4(),
       name: formData.get('name') as string,
-      amount: formData.get('amount') as unknown as number,
+      amount: Number(formData.get('amount') as string),
       category: formData.get('category-select') as CategoryList,
       description: formData.get('description') as string,
       date: (formData.get('date') as string).toString(),

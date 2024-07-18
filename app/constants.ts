@@ -1,4 +1,4 @@
-import { TExpenseData, TExpenseDataContext } from "./types";
+import { TExpenseDataContext } from "./types";
 
 export enum CategoryList {
     Food = 'Food & Groceries',
@@ -6,7 +6,12 @@ export enum CategoryList {
     Shopping = 'Shopping'
 }
 
-export const sampleExpenseData: TExpenseDataContext = {
+export const defaultExpenseData: TExpenseDataContext = {
     data: [],
-    setExpenseData: () => {},
+    activeDataId: "",
+    totalCash: 0,
+    setExpenseData: () => { },
+    setActiveExpenseData: () => { },
+    deleteExpenseData: () => { },
+    setTotalCash: () => {}
 };

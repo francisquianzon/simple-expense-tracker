@@ -1,7 +1,7 @@
 import { CategoryList } from "../constants";
 import { TExpenseData } from "../types";
 
-export const expensesData: TExpenseData[] = [
+export const mockExpensesData: TExpenseData[] = [
     {
         name: 'Knorr Sinigang',
         amount: 10,

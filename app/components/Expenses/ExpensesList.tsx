@@ -3,11 +3,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { TExpenseData } from '@/app/types';
 import { useContext } from 'react';
 import { ExpenseDataContext } from '@/app/page';
+import { Button } from '@/components/ui/button';
 
 const ExpenseList = () => {
-  const { data, setActiveExpenseData } = useContext(ExpenseDataContext);
+  const { data, setActiveExpenseData, deleteExpenseData } = useContext(ExpenseDataContext);
   const handleRowClick = (expense: TExpenseData) => {
     setActiveExpenseData(expense.id);
+  };
+
+  const handleDeleteClick = (expenseId: string) => {
+    deleteExpenseData(expenseId);
   };
 
   if (!data?.length) {
@@ -32,7 +37,11 @@ const ExpenseList = () => {
               <TableCell>{expense.name}</TableCell>
               <TableCell>{expense.category}</TableCell>
               <TableCell className="text-right">{expense.date ? expense.date.toString() : ''}</TableCell>
-              <TableCell className="text-center">Delete</TableCell>
+              <TableCell className="text-center">
+                <Button variant="destructive" size="sm" onClick={() => handleDeleteClick(expense.id)}>
+                  Delete
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
