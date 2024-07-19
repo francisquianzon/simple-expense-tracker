@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { FormEvent, useContext } from 'react';
 import { ExpenseDataContext } from '@/app/page';
 
-const EditDialog = () => {
+const EditTotalDialog = () => {
   const { totalCash, setTotalCash } = useContext(ExpenseDataContext);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -45,4 +45,4 @@ const EditDialog = () => {
   );
 };
 
-export default EditDialog;
+export default EditTotalDialog;

@@ -16,17 +16,18 @@ import { CategoryList } from '@/app/constants';
 import { Textarea } from '@/components/ui/textarea';
 import { ExpenseDataContext } from '@/app/page';
 import { useContext } from 'react';
-import { TExpenseData } from '@/app/types';
+import { TAddDialog, TExpenseData } from '@/app/types';
 import { v4 as uuidv4 } from 'uuid';
 
-const AddDialog = () => {
-  const { setExpenseData } = useContext(ExpenseDataContext);
+// Dynamic component used to Edit or Add an expense
+const AddDialog = ({ modifyExpense, activeExpense }: TAddDialog) => {
+  const { setExpenseData, updateExpenseData } = useContext(ExpenseDataContext);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const expenseFormData: TExpenseData = {
-      id: uuidv4(),
+      id: modifyExpense && activeExpense?.id ? activeExpense.id : uuidv4(),
       name: formData.get('name') as string,
       amount: Number(formData.get('amount') as string),
       category: formData.get('category-select') as CategoryList,
@@ -34,36 +35,36 @@ const AddDialog = () => {
       date: (formData.get('date') as string).toString(),
     };
 
-    setExpenseData(expenseFormData);
+    if (modifyExpense && activeExpense) updateExpenseData(expenseFormData);
+    else setExpenseData(expenseFormData);
   };
-
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Add</Button>
+        <Button variant="outline">{modifyExpense ? 'Edit' : 'Add'}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add a record</DialogTitle>
+          <DialogTitle>{modifyExpense ? 'Edit' : 'Add'} a record</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleFormSubmit}>
           <div className="flex flex-row gap-4">
             <div className="w-1/2">
               <Label className="text-right">Name</Label>
-              <Input required className="col-span-3" name="name" type={'string'} />
+              <Input required defaultValue={modifyExpense ? activeExpense?.name : ''} name="name" />
             </div>
             <div className="w-1/2">
               <Label className="text-right">Amount</Label>
-              <Input required defaultValue="0" type="number" name="amount" className="col-span-3" />
+              <Input required defaultValue={modifyExpense ? activeExpense?.amount : '0'} type="number" name="amount" />
             </div>
           </div>
           <div className="my-4 w-full">
             <Label className="text-right">Date</Label>
-            <Input defaultValue="0" type="date" name="date" className="col-span-3" />
+            <Input type="date" name="date" />
           </div>
           <div className="my-4 w-full">
             <Label className="text-right">Category</Label>
-            <Select required name="category-select">
+            <Select required name="category-select" defaultValue={modifyExpense ? activeExpense?.category : ''}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
@@ -82,7 +83,11 @@ const AddDialog = () => {
           </div>
           <div className="my-4 w-full">
             <Label className="text-right">Description</Label>
-            <Textarea placeholder="Type your expense description here." name="description" />
+            <Textarea
+              defaultValue={modifyExpense ? activeExpense?.description : ''}
+              placeholder="Type your expense description here."
+              name="description"
+            />
           </div>
           <DialogFooter>
             <DialogClose asChild>

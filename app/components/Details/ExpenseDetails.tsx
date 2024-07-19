@@ -2,16 +2,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useContext, useMemo } from 'react';
 import { ExpenseDataContext } from '@/app/page';
-import EditDialog from './EditDialog';
+import EditTotalDialog from './EditTotalDialog';
+import AddDialog from '../AddDialog';
 
 const ExpenseDetails = () => {
   const { activeDataId, data, totalCash } = useContext(ExpenseDataContext);
-
-  const totalExpenses = useMemo(() => {
-    return data.reduce((accumulator, datum) => {
-      return (accumulator += datum.amount);
-    }, 0);
-  }, [data]);
+  console.log(data);
+  const totalExpenses = data.reduce((accumulator, datum) => {
+    console.log(accumulator);
+    return (accumulator += datum.amount);
+  }, 0);
 
   // Finds and sets the expense to be displayed based on the given ID
   const activeExpenseObject = useMemo(() => {
@@ -33,7 +33,7 @@ const ExpenseDetails = () => {
             <div className="flex flex-col">
               <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">${totalCash}</h2>
               <div className="flex flex-1 justify-end">
-                <EditDialog />
+                <EditTotalDialog />
               </div>
             </div>
           </CardContent>
@@ -49,7 +49,14 @@ const ExpenseDetails = () => {
       </div>
       <Card className="ml-2 mt-4 h-full pb-8">
         <CardHeader>
-          <CardTitle className="border-b pb-2">Details</CardTitle>
+          <div className="flex flex-row border-b pb-4">
+            <CardTitle>Details</CardTitle>
+            {activeExpenseObject && (
+              <div className="flex flex-1 justify-end">
+                <AddDialog modifyExpense={true} activeExpense={activeExpenseObject} />
+              </div>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           {activeExpenseObject ? (

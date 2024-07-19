@@ -37,6 +37,21 @@ export default function Home() {
     setTotalCash((prev) => prev + expenseAmount);
   };
 
+  const handleUpdateExpenseData = (expense: TExpenseData) => {
+    let prevExpenseAmount = 0;
+    const updatedData = expenseData.map((datum) => {
+      if (datum.id === expense.id) {
+        prevExpenseAmount = datum.amount;
+        return (datum = {
+          ...expense,
+        });
+      }
+      return datum;
+    });
+    setExpenseData(updatedData);
+    setTotalCash((prev) => prev + prevExpenseAmount - expense.amount);
+  };
+
   return (
     <ExpenseDataContext.Provider
       value={{
@@ -47,6 +62,7 @@ export default function Home() {
         setActiveExpenseData: handleSetActiveExpense,
         deleteExpenseData: handleDeleteExpenseData,
         setTotalCash: handleSetTotalCash,
+        updateExpenseData: handleUpdateExpenseData,
       }}
     >
       <div className="flex h-screen flex-col p-8">

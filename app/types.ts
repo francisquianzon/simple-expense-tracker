@@ -17,4 +17,10 @@ export type TExpenseDataContext = {
     setActiveExpenseData: (expenseId: string) => void;
     deleteExpenseData: (expenseId: string) => void;
     setTotalCash: (cash: number) => void;
+    updateExpenseData: (expense: TExpenseData) => void;
+}
+
+export type TAddDialog = {
+    modifyExpense: boolean;
+    activeExpense?: TExpenseData;
 }
