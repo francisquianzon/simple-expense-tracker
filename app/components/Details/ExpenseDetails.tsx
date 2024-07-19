@@ -7,9 +7,7 @@ import AddDialog from '../AddDialog';
 
 const ExpenseDetails = () => {
   const { activeDataId, data, totalCash } = useContext(ExpenseDataContext);
-  console.log(data);
   const totalExpenses = data.reduce((accumulator, datum) => {
-    console.log(accumulator);
     return (accumulator += datum.amount);
   }, 0);
 
