@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { FormEvent, useContext } from 'react';
-import { ExpenseDataContext } from '@/app/page';
+import { ExpenseDataContext } from '@/app/context/ExpenseDataContext';
 
 const EditTotalDialog = () => {
   const { totalCash, setTotalCash } = useContext(ExpenseDataContext);

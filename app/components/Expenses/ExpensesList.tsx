@@ -2,7 +2,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { TExpenseData } from '@/app/types';
 import { useContext } from 'react';
-import { ExpenseDataContext } from '@/app/page';
+import { ExpenseDataContext } from '@/app/context/ExpenseDataContext';
 import { Button } from '@/components/ui/button';
 
 const ExpenseList = () => {

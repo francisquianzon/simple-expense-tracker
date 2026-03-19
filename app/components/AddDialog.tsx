@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { FormEvent } from 'react';
 import { CategoryList } from '@/app/constants';
 import { Textarea } from '@/components/ui/textarea';
-import { ExpenseDataContext } from '@/app/page';
+import { ExpenseDataContext } from '@/app/context/ExpenseDataContext';
 import { useContext } from 'react';
 import { TAddDialog, TExpenseData } from '@/app/types';
 import { v4 as uuidv4 } from 'uuid';

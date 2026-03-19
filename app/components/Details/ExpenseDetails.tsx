@@ -1,7 +1,7 @@
 'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useContext, useMemo } from 'react';
-import { ExpenseDataContext } from '@/app/page';
+import { ExpenseDataContext } from '@/app/context/ExpenseDataContext';
 import EditTotalDialog from './EditTotalDialog';
 import AddDialog from '../AddDialog';
 

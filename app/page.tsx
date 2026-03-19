@@ -2,12 +2,10 @@
 import Header from './components/Header/Header';
 import Expenses from './components/Expenses/Expenses';
 import ExpenseDetails from './components/Details/ExpenseDetails';
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import { TExpenseData } from './types';
-import { defaultExpenseData } from './constants';
 import { mockExpensesData } from './mocks/expenses';
-
-export const ExpenseDataContext = createContext(defaultExpenseData);
+import { ExpenseDataContext } from './context/ExpenseDataContext';
 
 export default function Home() {
   const [expenseData, setExpenseData] = useState<TExpenseData[]>(mockExpensesData); // Set initial mock data for testing/demo; remove if necessary
